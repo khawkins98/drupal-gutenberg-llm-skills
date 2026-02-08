@@ -28,17 +28,52 @@ Example prompts:
 
 ## Installation
 
-### For development/testing
+### Quick start (single session)
+
+Load the plugin for one Claude Code session without installing:
 
 ```bash
 claude --plugin-dir /path/to/drupal-gutenberg-llm-skills
 ```
 
-### As an installed plugin
+### Permanent install via local marketplace
+
+Register the repo as a local marketplace, then install the plugin:
 
 ```bash
-claude plugin add /path/to/drupal-gutenberg-llm-skills
+# From within the cloned repo directory (one-time setup)
+/plugin marketplace add ./
+
+# Or using an absolute path
+/plugin marketplace add /path/to/drupal-gutenberg-llm-skills
+
+# Install the plugin
+/plugin install drupal-gutenberg@drupal-gutenberg-llm-skills
 ```
+
+The plugin will be available in all future Claude Code sessions.
+
+## Development
+
+If you're working on the skill content in this repo:
+
+1. **Clone the repo** and make your changes to the Markdown files under `skills/`.
+
+2. **Test locally** — launch Claude Code with the plugin loaded from your working copy:
+
+   ```bash
+   claude --plugin-dir ./
+   ```
+
+   This picks up your local edits immediately with no install step.
+
+3. **Iterate** — edit skill files, restart Claude Code, and verify the skills activate and produce correct output.
+
+4. **Publish** — after pushing changes to the repo, anyone with a local clone can update:
+
+   ```bash
+   /plugin marketplace update drupal-gutenberg-llm-skills
+   ```
 
 ## Technical details
 
