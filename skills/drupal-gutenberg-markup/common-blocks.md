@@ -308,6 +308,8 @@ Three columns with custom widths:
 
 ### Group
 
+> **Drupal Gutenberg:** `wp:group` causes rendering issues and should not be used. Use `wp:columns` with a single `wp:column` child as a wrapper instead. The examples below are for reference only — see patterns-and-nesting.md for the Drupal-compatible alternatives.
+
 ```html
 <!-- wp:group {"className":"my-section"} -->
 <div class="wp-block-group my-section">

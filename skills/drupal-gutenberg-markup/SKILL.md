@@ -87,10 +87,28 @@ Self-check every piece of generated markup against this list:
 <!-- /wp:columns -->
 ```
 
+### Video embed (YouTube)
+```html
+<!-- wp:embed {"url":"https://www.youtube.com/watch?v=VIDEO_ID","type":"rich","providerNameSlug":"youtube","responsive":true,"className":"wp-embed-aspect-16-9 wp-has-aspect-ratio"} -->
+<figure class="wp-block-embed is-type-rich is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio">
+    <div class="wp-block-embed__wrapper">
+        https://www.youtube.com/watch?v=VIDEO_ID
+    </div>
+</figure>
+<!-- /wp:embed -->
+```
+
+## Page archetypes
+
+Two main page types exist:
+
+1. **Index/reference pages** -- Card grids, 5-column book card rows, full-width content. Use the page header with TOC sidebar pattern.
+2. **Publication landing pages** -- Narrative flow for annual reports, GAR, key publications. Uses centered reading column (15/70/15), sticky navigation bar, truncated story previews with read-more links to PDF, stats cards, quote highlights. See "Publication landing page archetype" in patterns-and-nesting.md.
+
 ## Detailed references
 
 For full examples and syntax rules, see these files in this skill's directory:
 
 - **block-syntax-reference.md** -- block grammar, attribute types, serialization rules
 - **common-blocks.md** -- copy-paste examples for every common block type
-- **patterns-and-nesting.md** -- nested blocks, column layouts, block patterns, `.gutenberg.yml` pattern definitions
+- **patterns-and-nesting.md** -- nested blocks, column layouts, block patterns, `.gutenberg.yml` pattern definitions, centered reading columns, sticky navigation, publication page archetype

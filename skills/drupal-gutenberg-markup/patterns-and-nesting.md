@@ -1,5 +1,7 @@
 # Patterns and nesting
 
+> **Drupal Gutenberg note:** The `wp:group` block causes rendering issues in Drupal Gutenberg and should not be used. Some examples in this file show generic Gutenberg patterns that include `wp:group` for illustration — in Drupal, replace `wp:group` wrappers with `wp:columns` containing a single `wp:column` child.
+
 ## Nested blocks
 
 Blocks that accept inner content use `InnerBlocks` in their edit/save functions. In serialized HTML, inner blocks sit between the parent's wrapper HTML tag and its closing block comment.
@@ -337,4 +339,124 @@ Drupal Gutenberg has two types of reusable content:
     <!-- /wp:column -->
 </div>
 <!-- /wp:columns -->
+```
+
+### Centered reading column (15% / 70% / 15%)
+
+For longer-form pages with a single narrative flow (annual reports, key publications), use a narrower reading column. Three columns — 15% empty, 70% content, 15% empty — center body text while full-width elements (hero, sticky nav, stats cards) break out of this pattern.
+
+```html
+<!-- wp:columns -->
+<div class="wp-block-columns">
+    <!-- wp:column {"width":"15%"} -->
+    <div class="wp-block-column" style="flex-basis:15%"></div>
+    <!-- /wp:column -->
+    <!-- wp:column {"width":"70%"} -->
+    <div class="wp-block-column" style="flex-basis:70%">
+        <!-- wp:heading {"level":2} -->
+        <h2>Section Title</h2>
+        <!-- /wp:heading -->
+        <!-- wp:paragraph -->
+        <p>Body text in the narrower center column for improved readability.</p>
+        <!-- /wp:paragraph -->
+    </div>
+    <!-- /wp:column -->
+    <!-- wp:column {"width":"15%"} -->
+    <div class="wp-block-column" style="flex-basis:15%"></div>
+    <!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+```
+
+This is responsive — on mobile the side columns collapse and content fills the viewport. Don't use this for index/reference pages where full-width content density is preferred.
+
+### Combined background color + centered reading column
+
+For sections that need both a background color AND a centered reading column, combine them in a single `wp:columns` block. This is cleaner than double-nesting a background wrapper inside centering columns.
+
+```html
+<!-- wp:columns {"backgroundColor":"undrr-light-grey","undrrUtilityClasses":["mg-container-full-width"]} -->
+<div class="wp-block-columns has-undrr-light-grey-background-color has-background mg-container-full-width">
+    <!-- wp:column {"width":"15%"} -->
+    <div class="wp-block-column" style="flex-basis:15%"></div>
+    <!-- /wp:column -->
+    <!-- wp:column {"width":"70%"} -->
+    <div class="wp-block-column" style="flex-basis:70%">
+        <!-- wp:heading -->
+        <h2>Section with Background</h2>
+        <!-- /wp:heading -->
+        <!-- wp:paragraph -->
+        <p>Content inside a full-width grey background with centered reading column.</p>
+        <!-- /wp:paragraph -->
+    </div>
+    <!-- /wp:column -->
+    <!-- wp:column {"width":"15%"} -->
+    <div class="wp-block-column" style="flex-basis:15%"></div>
+    <!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+```
+
+### Video embed (YouTube)
+
+```html
+<!-- wp:embed {"url":"https://www.youtube.com/watch?v=VIDEO_ID","type":"rich","providerNameSlug":"youtube","responsive":true,"className":"wp-embed-aspect-16-9 wp-has-aspect-ratio"} -->
+<figure class="wp-block-embed is-type-rich is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio">
+    <div class="wp-block-embed__wrapper">
+        https://www.youtube.com/watch?v=VIDEO_ID
+    </div>
+</figure>
+<!-- /wp:embed -->
+```
+
+The URL appears both in the JSON attributes and as text content inside the wrapper div.
+
+### Sticky navigation bar (proof of concept)
+
+For long-form pages, a sticky horizontal navigation bar can replace the TOC block. Uses a `wp:html` block with the Mangrove `mga-nav-on-this-page` component. This is a proof of concept (as of March 2026) that will eventually become a proper Gutenberg component.
+
+```html
+<!-- wp:html -->
+<nav class="mga-nav-on-this-page | vf-navigation vf-navigation--on-this-page | mg-container-full-width"
+  data-vf-google-analytics-region="container-navigation-page">
+  <ul class="mga-nav-on-this-page--inner | vf-navigation__list | vf-list"
+    data-vf-js-navigation-on-this-page-container="true">
+    <li class="vf-navigation__item">
+      <a class="vf-navigation__link" data-vf-js-navigation-on-this-page-link href="#section-id">Section label</a>
+    </li>
+    <li class="vf-navigation__item vf-navigation__item--cta">
+      <a class="vf-navigation__link" data-vf-js-navigation-on-this-page-link href="#download">Download</a>
+    </li>
+  </ul>
+</nav>
+<!-- /wp:html -->
+```
+
+The `href` values must match `anchor` attributes on H2 headings. Add `vf-navigation__item--cta` to the last item for call-to-action styling.
+
+## Publication landing page archetype
+
+For annual reports and key publications that companion a downloadable PDF, use a distinct page structure:
+
+1. **Hero header** with video or cover image (full-width)
+2. **Sticky navigation** bar (full-width `wp:html` block)
+3. **Foreword/introduction** in centered reading column (15/70/15)
+4. **Key statistics** using stats-card blocks (full-width)
+5. **Thematic sections** (H2) with story previews truncated to 2-3 paragraphs, each followed by a "Read more" link to the PDF
+6. **Quote highlights** for official quotes
+7. **Cross-cutting themes** as vertical content cards linking to thematic pages
+8. **Download footer** with book cards for PDF and annexes
+9. **"More" footer** with vertical content cards linking to related pages
+10. Alternating white/grey section backgrounds for visual rhythm
+
+Story truncation pattern:
+
+```html
+<!-- wp:paragraph -->
+<p>First 2-3 paragraphs of the story from the report...</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><a href="/media/XXXXX/download">Read more in the full report (PDF) →</a></p>
+<!-- /wp:paragraph -->
 ```
