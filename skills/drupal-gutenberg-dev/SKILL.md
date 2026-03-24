@@ -1,6 +1,6 @@
 ---
 name: drupal-gutenberg-dev
-version: 1.0.0
+version: 1.1.0
 description: >
   Develop custom Gutenberg blocks and modules for Drupal. Use when the user is
   creating, modifying, or debugging Drupal Gutenberg modules, custom blocks,

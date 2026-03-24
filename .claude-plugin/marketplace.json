@@ -8,7 +8,7 @@
       "name": "drupal-gutenberg",
       "source": "./",
       "description": "Skills for generating Drupal Gutenberg block markup and developing custom Gutenberg blocks/modules for Drupal",
-      "version": "1.0.0"
+      "version": "1.1.0"
     }
   ]
 }

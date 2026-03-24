@@ -1,6 +1,6 @@
 ---
 name: drupal-gutenberg-markup
-version: 1.0.0
+version: 1.1.0
 description: >
   Generate correct Drupal Gutenberg HTML block markup. Use when the user asks to
   create, edit, or compose Drupal Gutenberg content, HTML blocks, block patterns,
