@@ -27,7 +27,7 @@ skills/
 
 - **`SKILL.md`** is the entry point for each skill. Its YAML frontmatter `description` field controls auto-detection — Claude Code matches user intent against this text to decide when to load the skill.
 - Supporting `.md` files in each skill directory are referenced by `SKILL.md` and provide detailed examples and rules.
-- **`plugin.json`** must have `name` in kebab-case and `version` in semver.
+- **`plugin.json`** must have `name` in kebab-case and `version` in semver. Do **not** add a `skills` field — Claude Code rejects it with a validation error. Both tools auto-discover skills from the `skills/` directory.
 
 ## Drupal Gutenberg Domain Knowledge
 

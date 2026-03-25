@@ -129,6 +129,7 @@ When you change any of the following, check that both tools still behave correct
 | List available skills | `/plugin list` | `/skills list` |
 | Reload local edits | Restart with `--plugin-dir` | `copilot plugin install ./path` (refreshes cache) or `/skills reload` in session |
 | `version` in `SKILL.md` | Recognized | Ignored (extra fields are safe) |
+| `skills` in `plugin.json` | **Rejected** (validation error) | Defaults to `skills/` if absent — omit this field |
 | Agents (`.agent.md`) | Not supported | Supported |
 | Hooks (`hooks.json`) | Not supported | Supported |
 | MCP server config | Not supported | Supported |
@@ -151,16 +152,20 @@ Copilot CLI looks for `plugin.json` in these locations (in order):
 
 If your manifest is already at `.claude-plugin/plugin.json`, **no move is needed**.
 
-### 2. Add an explicit `skills` field to `plugin.json`
+### 2. Do not add a `skills` field to `plugin.json`
 
-Copilot CLI defaults to `skills/` if the field is absent, but being explicit avoids ambiguity:
+Both tools discover skills from the `skills/` directory automatically without an explicit field:
+
+- **Copilot CLI** defaults to `skills/` when the field is absent.
+- **Claude Code** rejects `plugin.json` with a validation error if a `skills` field is present.
+
+Omit `skills` entirely and let both tools use the default:
 
 ```json
 {
   "name": "my-plugin",
   "description": "…",
-  "version": "1.0.0",
-  "skills": "skills/"
+  "version": "1.0.0"
 }
 ```
 
