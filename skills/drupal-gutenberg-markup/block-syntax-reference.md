@@ -114,6 +114,62 @@ Gutenberg markup is stored as a single HTML string in:
 
 The entire page content (all blocks) is one continuous HTML string with block comments as delimiters.
 
+## Drupal Gutenberg 3.x serialization quirks
+
+These differ from what WordPress Gutenberg generates. Using the WordPress form may cause "invalid block" warnings or block recovery prompts in the Drupal editor.
+
+### Standalone HTML comments must be wrapped in wp:html
+
+Bare HTML comments between blocks (e.g. `<!-- Section header -->`) confuse the block parser and can corrupt the block tree. Wrap any organizational comments in a `wp:html` block:
+
+```html
+<!-- wp:html -->
+<!-- ====== SECTION: About ====== -->
+<!-- /wp:html -->
+```
+
+### Heading H2 — level attribute is optional
+
+`{"level":2}` is the default and can be omitted. The anchor ID belongs in the HTML `id=` attribute, not repeated in the block attributes when using this form:
+
+```html
+<!-- wp:heading -->
+<h2 class="wp-block-heading" id="my-section">Section Heading</h2>
+<!-- /wp:heading -->
+```
+
+Using `{"anchor":"my-section"}` in the block comment also works and may be preferable when round-tripping through the editor.
+
+### Separator uses opacity:css
+
+```html
+<!-- wp:separator {"opacity":"css"} -->
+<hr class="wp-block-separator has-css-opacity"/>
+<!-- /wp:separator -->
+```
+
+### Button links include wp-element-button class
+
+```html
+<a class="wp-block-button__link wp-element-button" href="/path">Label</a>
+```
+
+### Image figcaptions use wp-element-caption class
+
+```html
+<figcaption class="wp-element-caption">Caption text</figcaption>
+```
+
+### Card block: mediaURL lives in HTML only
+
+For `undrr/undrr-card`, the image URL is **not** stored in the block comment attributes — it lives only in the HTML save output. Omit `mediaURL` from the JSON:
+
+```html
+<!-- wp:undrr/undrr-card {"title":"Example","titleLink":"/path","summary":"...","mediaAlt":"Alt text"} -->
+<article class="wp-block-undrr-undrr-card">...</article>
+<!-- /wp:undrr/undrr-card -->
+```
+
 ## Common mistakes
 
 ### Wrong prefix

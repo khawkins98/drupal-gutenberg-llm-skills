@@ -163,8 +163,17 @@ With size, link, and caption:
     <a href="/sites/default/files/photo-full.jpg">
         <img src="/sites/default/files/styles/large/public/photo.jpg" alt="Photo" />
     </a>
-    <figcaption>Photo caption text</figcaption>
+    <figcaption class="wp-element-caption">Photo caption text</figcaption>
 </figure>
+<!-- /wp:image -->
+```
+
+> **Note:** Drupal Gutenberg 3.x adds `class="wp-element-caption"` to `<figcaption>` elements. Always include this class to avoid block validation warnings.
+
+With Drupal media entity attributes (for images uploaded via the Drupal media library):
+```html
+<!-- wp:image {"id":12345,"sizeSlug":"full","linkDestination":"none","mediaAttrs":{"data-entity-type":"file","data-entity-uuid":"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx","data-image-style":"original"}} -->
+<figure class="wp-block-image size-full"><img src="/sites/default/files/2026-01/photo.jpg" alt="Description" class="wp-image-12345" data-entity-type="file" data-entity-uuid="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" data-image-style="original"/></figure>
 <!-- /wp:image -->
 ```
 
@@ -336,18 +345,21 @@ With background color:
 
 ### Separator
 
+Default (CSS opacity — the Drupal Gutenberg serialized form):
 ```html
-<!-- wp:separator -->
-<hr class="wp-block-separator" />
+<!-- wp:separator {"opacity":"css"} -->
+<hr class="wp-block-separator has-css-opacity"/>
 <!-- /wp:separator -->
 ```
 
 Wide separator:
 ```html
-<!-- wp:separator {"className":"is-style-wide"} -->
-<hr class="wp-block-separator is-style-wide" />
+<!-- wp:separator {"className":"is-style-wide","opacity":"css"} -->
+<hr class="wp-block-separator has-css-opacity is-style-wide"/>
 <!-- /wp:separator -->
 ```
+
+> **Note:** Drupal Gutenberg 3.x serializes the separator with `{"opacity":"css"}` and the `has-css-opacity` class. Omitting these will still render but may cause a block validation warning in the editor.
 
 ### Spacer
 
@@ -364,33 +376,26 @@ Wide separator:
 Single button:
 ```html
 <!-- wp:buttons -->
-<div class="wp-block-buttons">
-    <!-- wp:button -->
-    <div class="wp-block-button">
-        <a class="wp-block-button__link" href="/contact">Contact Us</a>
-    </div>
-    <!-- /wp:button -->
-</div>
+<div class="wp-block-buttons"><!-- wp:button -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/contact">Contact Us</a></div>
+<!-- /wp:button --></div>
 <!-- /wp:buttons -->
 ```
 
 Multiple buttons with styles:
 ```html
 <!-- wp:buttons -->
-<div class="wp-block-buttons">
-    <!-- wp:button {"backgroundColor":"vivid-cyan-blue"} -->
-    <div class="wp-block-button">
-        <a class="wp-block-button__link has-vivid-cyan-blue-background-color has-background" href="/signup">Sign Up</a>
-    </div>
-    <!-- /wp:button -->
-    <!-- wp:button {"className":"is-style-outline"} -->
-    <div class="wp-block-button is-style-outline">
-        <a class="wp-block-button__link" href="/learn-more">Learn More</a>
-    </div>
-    <!-- /wp:button -->
-</div>
+<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"vivid-cyan-blue"} -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button has-vivid-cyan-blue-background-color has-background" href="/signup">Sign Up</a></div>
+<!-- /wp:button -->
+
+<!-- wp:button {"className":"is-style-outline"} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/learn-more">Learn More</a></div>
+<!-- /wp:button --></div>
 <!-- /wp:buttons -->
 ```
+
+> **Note:** Drupal Gutenberg 3.x adds `wp-element-button` to the button `<a>` tag. Always include it alongside `wp-block-button__link` to avoid block validation warnings.
 
 ### Table
 
