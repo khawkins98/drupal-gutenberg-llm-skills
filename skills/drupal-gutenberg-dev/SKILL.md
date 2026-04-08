@@ -111,6 +111,48 @@ drush en gutenberg
 
 Then enable Gutenberg for specific content types at `/admin/config/content/gutenberg`.
 
+## Block deprecation
+
+When modifying a block's `save()` function, **always add a deprecation entry** to prevent "Attempt Block Recovery" warnings on existing content.
+
+Gutenberg compares stored HTML against the current `save()` output. A mismatch — even a single added class — triggers a validation warning on every existing instance of that block. The `deprecated` API tells Gutenberg how to recognize old markup and silently migrate it.
+
+### Steps
+
+1. **Before changing `save()`**, copy the current `save` function and `attributes` object into a versioned constant:
+   ```javascript
+   const v1 = {
+     attributes: { /* current attributes, before your change */ },
+     save({ attributes }) {
+       // Current save() body, before your change
+     },
+   };
+   ```
+2. Add the constant to the block's `deprecated` array: `deprecated: [v1]`
+3. If attribute shapes changed, include a `migrate(attributes)` function that maps old to new
+4. Stack deprecations in reverse chronological order: `deprecated: [v2, v1]`
+5. **Test:** load a page with existing instances — no recovery warning should appear
+
+### When to add a deprecation
+
+- New or removed CSS classes in save output
+- Changed wrapper elements or HTML structure
+- Added, removed, or renamed attributes that affect save output
+- Changed default attribute values that alter the rendered HTML
+
+### When deprecation doesn't help
+
+- Core Gutenberg blocks whose markup changed due to a Drupal Gutenberg module upgrade — these are outside your control
+- Blocks broken by translation workflows or content import
+
+### Drupal Gutenberg i18n note
+
+Drupal Gutenberg replaces `wp.i18n` with a `Drupal.t()` wrapper (`gutenberg/js/i18n.js`). The vendored i18n filter hooks (`i18n.gettext`) and `setLocaleData()` are inoperative. To override Gutenberg UI strings, monkey-patch `wp.i18n.__` directly.
+
+### Reference
+
+- [WordPress Block Deprecation API](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-deprecation/)
+
 ## Detailed references
 
 See these files in this skill's directory:
