@@ -411,29 +411,6 @@ For sections that need both a background color AND a centered reading column, co
 
 The URL appears both in the JSON attributes and as text content inside the wrapper div.
 
-### Sticky navigation bar (proof of concept)
-
-For long-form pages, a sticky horizontal navigation bar can replace the TOC block. Uses a `wp:html` block with the Mangrove `mga-nav-on-this-page` component. This is a proof of concept (as of March 2026) that will eventually become a proper Gutenberg component.
-
-```html
-<!-- wp:html -->
-<nav class="mga-nav-on-this-page | vf-navigation vf-navigation--on-this-page | mg-container-full-width"
-  data-vf-google-analytics-region="container-navigation-page">
-  <ul class="mga-nav-on-this-page--inner | vf-navigation__list | vf-list"
-    data-vf-js-navigation-on-this-page-container="true">
-    <li class="vf-navigation__item">
-      <a class="vf-navigation__link" data-vf-js-navigation-on-this-page-link href="#section-id">Section label</a>
-    </li>
-    <li class="vf-navigation__item vf-navigation__item--cta">
-      <a class="vf-navigation__link" data-vf-js-navigation-on-this-page-link href="#download">Download</a>
-    </li>
-  </ul>
-</nav>
-<!-- /wp:html -->
-```
-
-The `href` values must match `anchor` attributes on H2 headings. Add `vf-navigation__item--cta` to the last item for call-to-action styling.
-
 ## Publication landing page archetype
 
 For annual reports and key publications that companion a downloadable PDF, use a distinct page structure:
