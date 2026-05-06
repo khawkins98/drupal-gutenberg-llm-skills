@@ -23,48 +23,54 @@ Blocks that accept inner content use `InnerBlocks` in their edit/save functions.
 
 ### Deeply nested example
 
+The outer wrapper here uses `wp:columns` with a single `wp:column` child rather than `wp:group` — see the Drupal Gutenberg note at the top of this file. Inside it, a second `wp:columns` provides the two-up service layout.
+
 ```html
-<!-- wp:group {"className":"page-section"} -->
-<div class="wp-block-group page-section">
-    <!-- wp:heading {"level":2} -->
-    <h2>Our Services</h2>
-    <!-- /wp:heading -->
-    <!-- wp:columns -->
-    <div class="wp-block-columns">
-        <!-- wp:column -->
-        <div class="wp-block-column">
-            <!-- wp:image {"sizeSlug":"medium"} -->
-            <figure class="wp-block-image size-medium">
-                <img src="/sites/default/files/service1.jpg" alt="Service 1" />
-            </figure>
-            <!-- /wp:image -->
-            <!-- wp:heading {"level":3} -->
-            <h3>Web Development</h3>
-            <!-- /wp:heading -->
-            <!-- wp:paragraph -->
-            <p>Custom Drupal development services.</p>
-            <!-- /wp:paragraph -->
+<!-- wp:columns {"className":"page-section"} -->
+<div class="wp-block-columns page-section">
+    <!-- wp:column -->
+    <div class="wp-block-column">
+        <!-- wp:heading {"level":2} -->
+        <h2>Our Services</h2>
+        <!-- /wp:heading -->
+        <!-- wp:columns -->
+        <div class="wp-block-columns">
+            <!-- wp:column -->
+            <div class="wp-block-column">
+                <!-- wp:image {"sizeSlug":"medium"} -->
+                <figure class="wp-block-image size-medium">
+                    <img src="/sites/default/files/service1.jpg" alt="Service 1" />
+                </figure>
+                <!-- /wp:image -->
+                <!-- wp:heading {"level":3} -->
+                <h3>Web Development</h3>
+                <!-- /wp:heading -->
+                <!-- wp:paragraph -->
+                <p>Custom Drupal development services.</p>
+                <!-- /wp:paragraph -->
+            </div>
+            <!-- /wp:column -->
+            <!-- wp:column -->
+            <div class="wp-block-column">
+                <!-- wp:image {"sizeSlug":"medium"} -->
+                <figure class="wp-block-image size-medium">
+                    <img src="/sites/default/files/service2.jpg" alt="Service 2" />
+                </figure>
+                <!-- /wp:image -->
+                <!-- wp:heading {"level":3} -->
+                <h3>Design</h3>
+                <!-- /wp:heading -->
+                <!-- wp:paragraph -->
+                <p>UX and visual design services.</p>
+                <!-- /wp:paragraph -->
+            </div>
+            <!-- /wp:column -->
         </div>
-        <!-- /wp:column -->
-        <!-- wp:column -->
-        <div class="wp-block-column">
-            <!-- wp:image {"sizeSlug":"medium"} -->
-            <figure class="wp-block-image size-medium">
-                <img src="/sites/default/files/service2.jpg" alt="Service 2" />
-            </figure>
-            <!-- /wp:image -->
-            <!-- wp:heading {"level":3} -->
-            <h3>Design</h3>
-            <!-- /wp:heading -->
-            <!-- wp:paragraph -->
-            <p>UX and visual design services.</p>
-            <!-- /wp:paragraph -->
-        </div>
-        <!-- /wp:column -->
+        <!-- /wp:columns -->
     </div>
-    <!-- /wp:columns -->
+    <!-- /wp:column -->
 </div>
-<!-- /wp:group -->
+<!-- /wp:columns -->
 ```
 
 ## Parent-child relationships
