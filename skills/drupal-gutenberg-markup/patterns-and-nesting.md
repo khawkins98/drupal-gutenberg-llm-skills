@@ -1,6 +1,6 @@
 # Patterns and nesting
 
-> **Drupal Gutenberg note:** The `wp:group` block causes rendering issues in Drupal Gutenberg and should not be used. Some examples in this file show generic Gutenberg patterns that include `wp:group` for illustration — in Drupal, replace `wp:group` wrappers with `wp:columns` containing a single `wp:column` child.
+> **Drupal Gutenberg note:** The `wp:group` block causes rendering issues in Drupal Gutenberg and should not be used. Every wrapper example in this file uses `wp:columns` with a single `wp:column` child as the Drupal-compatible substitute — apply the same swap to any `wp:group` markup you encounter elsewhere.
 
 ## Nested blocks
 
@@ -192,16 +192,20 @@ __experimentalBlockPatterns:
     description: "A styled quote with attribution"
     categories: ["testimonials"]
     content: |
-      <!-- wp:group {"backgroundColor":"pale-cyan-blue","className":"testimonial-card"} -->
-      <div class="wp-block-group testimonial-card has-pale-cyan-blue-background-color has-background">
-          <!-- wp:quote -->
-          <blockquote class="wp-block-quote"><!-- wp:paragraph -->
-          <p>This product changed how we work. Highly recommended!</p>
-          <!-- /wp:paragraph -->
-          <cite>Jane Smith, CEO of Example Corp</cite></blockquote>
-          <!-- /wp:quote -->
+      <!-- wp:columns {"backgroundColor":"pale-cyan-blue","className":"testimonial-card"} -->
+      <div class="wp-block-columns testimonial-card has-pale-cyan-blue-background-color has-background">
+          <!-- wp:column -->
+          <div class="wp-block-column">
+              <!-- wp:quote -->
+              <blockquote class="wp-block-quote"><!-- wp:paragraph -->
+              <p>This product changed how we work. Highly recommended!</p>
+              <!-- /wp:paragraph -->
+              <cite>Jane Smith, CEO of Example Corp</cite></blockquote>
+              <!-- /wp:quote -->
+          </div>
+          <!-- /wp:column -->
       </div>
-      <!-- /wp:group -->
+      <!-- /wp:columns -->
 ```
 
 ### Pattern content rules
@@ -235,59 +239,71 @@ Drupal Gutenberg has two types of reusable content:
 <div class="wp-block-columns">
     <!-- wp:column -->
     <div class="wp-block-column">
-        <!-- wp:group {"className":"card"} -->
-        <div class="wp-block-group card">
-            <!-- wp:image {"sizeSlug":"medium"} -->
-            <figure class="wp-block-image size-medium">
-                <img src="/sites/default/files/card1.jpg" alt="" />
-            </figure>
-            <!-- /wp:image -->
-            <!-- wp:heading {"level":3} -->
-            <h3>Card Title</h3>
-            <!-- /wp:heading -->
-            <!-- wp:paragraph -->
-            <p>Card description text.</p>
-            <!-- /wp:paragraph -->
+        <!-- wp:columns {"className":"card"} -->
+        <div class="wp-block-columns card">
+            <!-- wp:column -->
+            <div class="wp-block-column">
+                <!-- wp:image {"sizeSlug":"medium"} -->
+                <figure class="wp-block-image size-medium">
+                    <img src="/sites/default/files/card1.jpg" alt="" />
+                </figure>
+                <!-- /wp:image -->
+                <!-- wp:heading {"level":3} -->
+                <h3>Card Title</h3>
+                <!-- /wp:heading -->
+                <!-- wp:paragraph -->
+                <p>Card description text.</p>
+                <!-- /wp:paragraph -->
+            </div>
+            <!-- /wp:column -->
         </div>
-        <!-- /wp:group -->
+        <!-- /wp:columns -->
     </div>
     <!-- /wp:column -->
     <!-- wp:column -->
     <div class="wp-block-column">
-        <!-- wp:group {"className":"card"} -->
-        <div class="wp-block-group card">
-            <!-- wp:image {"sizeSlug":"medium"} -->
-            <figure class="wp-block-image size-medium">
-                <img src="/sites/default/files/card2.jpg" alt="" />
-            </figure>
-            <!-- /wp:image -->
-            <!-- wp:heading {"level":3} -->
-            <h3>Card Title</h3>
-            <!-- /wp:heading -->
-            <!-- wp:paragraph -->
-            <p>Card description text.</p>
-            <!-- /wp:paragraph -->
+        <!-- wp:columns {"className":"card"} -->
+        <div class="wp-block-columns card">
+            <!-- wp:column -->
+            <div class="wp-block-column">
+                <!-- wp:image {"sizeSlug":"medium"} -->
+                <figure class="wp-block-image size-medium">
+                    <img src="/sites/default/files/card2.jpg" alt="" />
+                </figure>
+                <!-- /wp:image -->
+                <!-- wp:heading {"level":3} -->
+                <h3>Card Title</h3>
+                <!-- /wp:heading -->
+                <!-- wp:paragraph -->
+                <p>Card description text.</p>
+                <!-- /wp:paragraph -->
+            </div>
+            <!-- /wp:column -->
         </div>
-        <!-- /wp:group -->
+        <!-- /wp:columns -->
     </div>
     <!-- /wp:column -->
     <!-- wp:column -->
     <div class="wp-block-column">
-        <!-- wp:group {"className":"card"} -->
-        <div class="wp-block-group card">
-            <!-- wp:image {"sizeSlug":"medium"} -->
-            <figure class="wp-block-image size-medium">
-                <img src="/sites/default/files/card3.jpg" alt="" />
-            </figure>
-            <!-- /wp:image -->
-            <!-- wp:heading {"level":3} -->
-            <h3>Card Title</h3>
-            <!-- /wp:heading -->
-            <!-- wp:paragraph -->
-            <p>Card description text.</p>
-            <!-- /wp:paragraph -->
+        <!-- wp:columns {"className":"card"} -->
+        <div class="wp-block-columns card">
+            <!-- wp:column -->
+            <div class="wp-block-column">
+                <!-- wp:image {"sizeSlug":"medium"} -->
+                <figure class="wp-block-image size-medium">
+                    <img src="/sites/default/files/card3.jpg" alt="" />
+                </figure>
+                <!-- /wp:image -->
+                <!-- wp:heading {"level":3} -->
+                <h3>Card Title</h3>
+                <!-- /wp:heading -->
+                <!-- wp:paragraph -->
+                <p>Card description text.</p>
+                <!-- /wp:paragraph -->
+            </div>
+            <!-- /wp:column -->
         </div>
-        <!-- /wp:group -->
+        <!-- /wp:columns -->
     </div>
     <!-- /wp:column -->
 </div>
@@ -297,25 +313,29 @@ Drupal Gutenberg has two types of reusable content:
 ### Full-width section with centered content
 
 ```html
-<!-- wp:group {"align":"full","backgroundColor":"black"} -->
-<div class="wp-block-group alignfull has-black-background-color has-background">
-    <!-- wp:heading {"textAlign":"center","textColor":"white"} -->
-    <h2 class="has-text-align-center has-white-color has-text-color">Section Title</h2>
-    <!-- /wp:heading -->
-    <!-- wp:paragraph {"align":"center","textColor":"white"} -->
-    <p class="has-text-align-center has-white-color has-text-color">Description text centered below the heading.</p>
-    <!-- /wp:paragraph -->
-    <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
-    <div class="wp-block-buttons">
-        <!-- wp:button {"backgroundColor":"white","textColor":"black"} -->
-        <div class="wp-block-button">
-            <a class="wp-block-button__link has-black-color has-white-background-color has-text-color has-background">Call to Action</a>
+<!-- wp:columns {"align":"full","backgroundColor":"black"} -->
+<div class="wp-block-columns alignfull has-black-background-color has-background">
+    <!-- wp:column -->
+    <div class="wp-block-column">
+        <!-- wp:heading {"textAlign":"center","textColor":"white"} -->
+        <h2 class="has-text-align-center has-white-color has-text-color">Section Title</h2>
+        <!-- /wp:heading -->
+        <!-- wp:paragraph {"align":"center","textColor":"white"} -->
+        <p class="has-text-align-center has-white-color has-text-color">Description text centered below the heading.</p>
+        <!-- /wp:paragraph -->
+        <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+        <div class="wp-block-buttons">
+            <!-- wp:button {"backgroundColor":"white","textColor":"black"} -->
+            <div class="wp-block-button">
+                <a class="wp-block-button__link has-black-color has-white-background-color has-text-color has-background">Call to Action</a>
+            </div>
+            <!-- /wp:button -->
         </div>
-        <!-- /wp:button -->
+        <!-- /wp:buttons -->
     </div>
-    <!-- /wp:buttons -->
+    <!-- /wp:column -->
 </div>
-<!-- /wp:group -->
+<!-- /wp:columns -->
 ```
 
 ### Sidebar layout (two-thirds / one-third)
